@@ -28,6 +28,11 @@ int main(){
 				window.close();
 		}
 
+		if (window.waitEvent(event))
+		{
+			std::cout << "Event actived" << std::endl;
+		}
+
 		//drawShape(window);
 		//setUpEslapseTime(clock, time);
 		//setUpTimer();
