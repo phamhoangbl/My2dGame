@@ -1,7 +1,11 @@
 #include <SFML/Graphics.hpp>
+#include <string>
 #include <iostream>
 
 void drawShape(sf::RenderWindow &window);
+void setupKeyBoardEvent(sf::Event &even, std::string &message, std::string &display, int &index);
+void setupWaitEvent(sf::RenderWindow &window, sf::Event &even);
+void setupKeyBoardEvent(sf::Event &even, sf::String &message, sf::String &display, sf::Int16 &index);
 void setUpEslapseTime();
 void setUpTimer();
 
@@ -15,7 +19,11 @@ int main(){
 
 	window.setSize(size);
 	window.setTitle("My first 2d Game in SFML");
-	window.setPosition(sf::Vector2i(400, 100));
+	window.setPosition(sf::Vector2i(900, 100));
+
+	std::string message = "Hello, my name is John, make SFML simple and easy";
+	std::string display = "";
+	int index = 0;
 
 	while (window.isOpen()){
 
@@ -26,13 +34,11 @@ int main(){
 
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			setupKeyBoardEvent(event, message, display, index);
 		}
 
-		if (window.waitEvent(event))
-		{
-			std::cout << "Event actived" << std::endl;
-		}
-
+		//setupWaitEvent(window, event);
 		//drawShape(window);
 		//setUpEslapseTime(clock, time);
 		//setUpTimer();
@@ -40,6 +46,29 @@ int main(){
 		window.display();
 	}
 	
+}
+
+void setupKeyBoardEvent(sf::Event &even, std::string &message, std::string &display, int &index)
+{
+	if (even.type == sf::Event::KeyPressed)
+	{
+		if (even.key.code == sf::Keyboard::Return || even.key.code == sf::Keyboard::A)
+		{
+			display += message[index];
+
+			index++;
+			system("cls");
+			std::cout << display;
+		}
+	}
+}
+
+void setupWaitEvent(sf::RenderWindow &window, sf::Event &event)
+{
+	if (window.waitEvent(event))
+	{
+		std::cout << "Event actived" << std::endl;
+	}
 }
 
 void drawShape(sf::RenderWindow &window)
