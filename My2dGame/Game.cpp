@@ -1,11 +1,22 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
 int main(){
 
-	sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Application");
-	sf::CircleShape shape;
+	sf::RenderWindow window;
+	window.create(sf::VideoMode(640, 480), "SFML Application", sf::Style::Titlebar | sf::Style::Close);
+
+	sf::Vector2u size(400, 400);
+	std::cout << size.x << " " << size.y << std::endl;
+
+	window.setSize(size);
+	window.setTitle("My first 2d Game in SFML");
+	window.setPosition(sf::Vector2i(400, 100));
+	
+	/*sf::CircleShape shape;
 	shape.setRadius(40.f);
 	shape.setPosition(100.f, 100.f);
-	shape.setFillColor(sf::Color::Cyan);
+	shape.setFillColor(sf::Color::Blue);*/
 
 	while (window.isOpen()){
 
@@ -17,7 +28,7 @@ int main(){
 		}
 
 		window.clear();
-		window.draw(shape);
+		//window.draw(shape);
 		window.display();
 	}
 
