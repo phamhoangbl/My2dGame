@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 
+void setupMouseEvent(sf::Event &even);
 void drawShape(sf::RenderWindow &window);
 void setupKeyBoardEvent(sf::Event &even, std::string &message, std::string &display, int &index);
 void setupWaitEvent(sf::RenderWindow &window, sf::Event &even);
@@ -21,13 +22,15 @@ int main(){
 	window.setTitle("My first 2d Game in SFML");
 	window.setPosition(sf::Vector2i(900, 100));
 
-	std::string message = "Hello, my name is John, make SFML simple and easy";
+	/*std::string message = "Hello, my name is John, make SFML simple and easy";
 	std::string display = "";
-	int index = 0;
+	int index = 0;*/
+
+
+	window.clear();
+
 
 	while (window.isOpen()){
-
-		window.clear();
 
 		sf::Event event;
 		while (window.pollEvent(event)){
@@ -35,7 +38,8 @@ int main(){
 			if (event.type == sf::Event::Closed)
 				window.close();
 
-			setupKeyBoardEvent(event, message, display, index);
+			//setupKeyBoardEvent(event, message, display, index);
+			setupMouseEvent(event);
 		}
 
 		//setupWaitEvent(window, event);
@@ -46,6 +50,42 @@ int main(){
 		window.display();
 	}
 	
+}
+
+void setupMouseEvent(sf::Event &even)
+{
+	switch (even.type)
+	{
+		case sf::Event::MouseEntered:
+		{
+			std::cout << "In bounds of game screen" << std::endl;
+			break;
+		}
+		case sf::Event::MouseLeft:
+		{	
+			std::cout << "Out bounds of game screen" << std::endl;
+			break;
+		}
+		case sf::Event::MouseMoved:
+		{
+			std::cout << "X: " << even.mouseMove.x << " Y: " + even.mouseMove.y << std::endl;
+			break;
+		}
+		case sf::Event::MouseButtonPressed:
+		{
+			if (even.mouseButton.button == sf::Mouse::Button::Left)
+			{
+				std::cout << "X: " << even.mouseButton.x + " Y: " + even.mouseButton.y;
+			}
+			break;
+		}
+		case sf::Event::MouseWheelMoved:
+		{
+			std::cout << "Delta: " << even.mouseWheel.delta << std::endl;
+			std::cout << "mouse wheel x: " << even.mouseWheel.x + "mouse wheel y: " << even.mouseWheel.y;
+			break;
+		}
+	}
 }
 
 void setupKeyBoardEvent(sf::Event &even, std::string &message, std::string &display, int &index)
