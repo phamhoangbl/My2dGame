@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 
+void DiplayImages(sf::RenderWindow &window);
 void setupMouseEvent(sf::Event &even);
 void drawShape(sf::RenderWindow &window);
 void setupKeyBoardEvent(sf::Event &even, std::string &message, std::string &display, int &index);
@@ -29,7 +30,6 @@ int main(){
 
 	window.clear();
 
-
 	while (window.isOpen()){
 
 		sf::Event event;
@@ -39,17 +39,33 @@ int main(){
 				window.close();
 
 			//setupKeyBoardEvent(event, message, display, index);
-			setupMouseEvent(event);
+			//setupMouseEvent(event);
 		}
 
 		//setupWaitEvent(window, event);
 		//drawShape(window);
 		//setUpEslapseTime(clock, time);
 		//setUpTimer();
-
+		DiplayImages(window);
 		window.display();
 	}
 	
+}
+
+
+void DiplayImages(sf::RenderWindow &window)
+{
+	sf::Texture pTextTure;
+	sf::Sprite playerImage;
+
+	if (!pTextTure.loadFromFile("image.png", sf::IntRect(32, 0, 32, 32)))
+	{
+		std::cout << "Could not load player image" << std::endl;
+	}
+	playerImage.setTexture(pTextTure);
+	//playerImage.setPosition(100, 100);
+
+	window.draw(playerImage);
 }
 
 void setupMouseEvent(sf::Event &even)
